@@ -1,6 +1,7 @@
 const createAccount = document.getElementById("createAccount");
 const next = document.getElementById("next");
-const url = "http://localhost:3002/create/user";
+//const url = "http://localhost:3002/create/user";
+const url = "https://voice-auth.herokuapp.com/create/user";
 createAccount.addEventListener("click", createUserAccount);
 next.addEventListener("click", function(e) {
   e.preventDefault();

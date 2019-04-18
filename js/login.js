@@ -6,6 +6,8 @@ start.addEventListener("click", analyze);
 function analyze(e) {
   e.preventDefault();
   var phrase = document.getElementById("phrase").value;
+  var name = JSON.parse(localStorage.getItem("user_id")).name;
+  console.log(name);
   if (!phrase) {
     alert("Please include your key phrase");
     return;
@@ -157,8 +159,8 @@ function handleAudioFile(audiofile) {
           phrase: phrase,
           id: id
         };
-
-        let url = `http://localhost:3002/user/login`;
+        let url = `https://voice-auth.herokuapp.com/user/login`;
+        //let url = `http://localhost:3002/user/login`;
         axios({
           url: url,
           method: "post",
@@ -167,10 +169,14 @@ function handleAudioFile(audiofile) {
           .then(result => {
             console.log(result);
             switch (result.status) {
-              case 201:
+              case 200:
+                let loader = document.getElementById("loader");
+                loader.className = "";
                 alert(` Welcome ${name}, login successful `);
                 break;
               default:
+                // let loader = document.getElementById("loader");
+                loader.className = "";
                 alert("Check console something went wrong");
                 console.log(result);
                 break;
@@ -179,6 +185,9 @@ function handleAudioFile(audiofile) {
             // console.log("User identified successfully");
           })
           .catch(error => {
+            let loader = document.getElementById("loader");
+            loader.className = "";
+            alert(`${error.response.data.msg}`);
             console.log(error.response.data.msg);
           });
       });
