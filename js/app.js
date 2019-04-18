@@ -22,9 +22,15 @@ deleted.addEventListener("click", function(e) {
 //Creating function handleCreate and handleStop
 function handleCreate(e) {
   e.preventDefault();
+  let id = JSON.parse(localStorage.getItem("user_id")).voiceId;
   let phrase = document.getElementById("phrase").value;
   if (!phrase) {
     alert("Please enter a phrase to proceed");
+    return;
+  }
+
+  if (!id) {
+    alert("Please go back to create an account");
     return;
   }
 

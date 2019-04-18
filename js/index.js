@@ -27,8 +27,9 @@ function createUserAccount(e) {
   })
     .then(result => {
       if (result.status === 400) {
-        let pre = document.getElementById("log");
-        pre.innerHTML = "One or more parameters missing";
+        //let pre = document.getElementById("log");
+        //pre.innerHTML = "One or more parameters missing";
+        alert("One or more paramater missing");
         return;
       }
 
@@ -43,8 +44,9 @@ function createUserAccount(e) {
         };
 
         localStorage.setItem("user_id", JSON.stringify(data));
-        let pre = document.getElementById("log");
-        pre.innerHTML = "Account created successfully, click next to proceed";
+        //let pre = document.getElementById("log");
+        //pre.innerHTML = "Account created successfully, click next to proceed";
+        alert("Account created successfully, Click next to proceed ");
         return;
       }
 
