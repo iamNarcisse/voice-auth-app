@@ -66,7 +66,8 @@ function createUserAccount(e) {
 //console.log(result);
     })
     .catch(error => {
-      alert(error.response.data.msg);
+      console.log(error.response)
+//alert(error.response.data.msg);
       document.getElementById("spinner").style.visibility = "hidden"
     });
 

@@ -227,24 +227,10 @@ function handleAudioFile(audiofile) {
           data: data
         })
           .then(result => {
-            if (result.status == 201) {
-              var count = localStorage.getItem("count");
+            if (result.status === 201) {
+              alert("Voice Enrollment successfully minimum of 3 enrollments required ")
+            //  var count = localStorage.getItem("count");
               //var pre = document.getElementById("log");
-              switch (count) {
-                case count == null:
-                  localStorage.setItem("count", 1);
-                  alert("Enrollment successfully 2 more enrollments to go");
-                  break;
-                case count === 1:
-                  localStorage.setItem("count", 2);
-                  alert ("Enrollment successfully 1 more enrollments to go");
-                  break;
-                case count ===2:
-                    alert("All 3 voice enrollments successfully, You can now login with your voice");
-                  break;
-                default:
-                  console.log(count, "is here");
-              }
               return;
             }
           //  console.log(result);
