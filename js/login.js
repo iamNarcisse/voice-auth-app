@@ -31,8 +31,8 @@ function analyze(e) {
     rec = new Recorder(input, { numChannels: 1 });
     rec.record();
     console.log("recording started");
-    let loader = document.getElementById("loader");
-    loader.className = "loader";
+    let loader = document.getElementById("spinner");
+    loader.style.visibility = "visible";
     setTimeout(handleStop, 5000);
   };
 
@@ -170,14 +170,14 @@ function handleAudioFile(audiofile) {
             console.log(result);
             switch (result.status) {
               case 200:
-                let loader = document.getElementById("loader");
-                loader.className = "";
-                alert(` Welcome ${name}, login successful `);
+                let loader = document.getElementById("spinner");
+                loader.style.visibility = "visible";
+                alert(`Welcome ${name}, login successful `);
                 break;
               default:
                 // let loader = document.getElementById("loader");
-                loader.className = "";
-                alert("Check console something went wrong");
+                //loader.className = "";
+              //  alert("Check console something went wrong");
                 console.log(result);
                 break;
             }
@@ -185,8 +185,8 @@ function handleAudioFile(audiofile) {
             // console.log("User identified successfully");
           })
           .catch(error => {
-            let loader = document.getElementById("loader");
-            loader.className = "";
+            let loader = document.getElementById("spinner");
+            loader.style.visibility= "hidden";
             alert(`${error.response.data.msg}`);
             console.log(error.response.data.msg);
           });

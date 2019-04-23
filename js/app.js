@@ -2,6 +2,7 @@ var createVoiceInput = document.getElementById("start");
 var enroll = document.getElementById("enroll"); //Stops recording process
 const deleted = document.getElementById("delete");
 var id = JSON.parse(localStorage.getItem("user_id")).voiceId;
+//var id = 1;
 //Add eventlisteners to the variables declared above
 
 createVoiceInput.addEventListener("click", handleCreate);
@@ -9,20 +10,17 @@ enroll.addEventListener("click", enrollAudio);
 
 //delete audio file
 deleted.addEventListener("click", function(e) {
-  //console.log("ye")
-  //let id = JSON.parse(localStorage.getItem("user_id")).voiceId;
-  //  console.log(id, "i am here")
   e.preventDefault();
-  console.log(id, "i am here");
   const span = document.getElementById("span");
   span.innerHTML = "";
+  deleted.style.visibility = "hidden";
 });
 //stop.addEventListener("click", handleStop);
 
 //Creating function handleCreate and handleStop
 function handleCreate(e) {
   e.preventDefault();
-  let id = JSON.parse(localStorage.getItem("user_id")).voiceId;
+  //let id = JSON.parse(localStorage.getItem("user_id")).voiceId;
   let phrase = document.getElementById("phrase").value;
   if (!phrase) {
     alert("Please enter a phrase to proceed");
@@ -34,6 +32,9 @@ function handleCreate(e) {
     return;
   }
 
+  let spinner = document.getElementById("spinner");
+  spinner.style.visibility = "visible";
+
   console.log(id);
   console.log("recording in progress");
   //setting media constraints
@@ -42,8 +43,8 @@ function handleCreate(e) {
     video: false
   };
 
-  createVoiceInput.disabled = true;
-  enroll.disabled = false;
+//  createVoiceInput.disabled = true;
+  //enroll.disabled = false;
 
   //using the inbuilt media operation
 
@@ -54,8 +55,6 @@ function handleCreate(e) {
     rec = new Recorder(input, { numChannels: 1 });
     rec.record();
     console.log("recording started");
-    let loader = document.getElementById("loader");
-    loader.className = "loader";
     setTimeout(handleStop, 5000);
   };
 
@@ -64,17 +63,18 @@ function handleCreate(e) {
     .then(handleSuccess)
     .catch(function(error) {
       console.log(error);
-      start.disabled = false;
-      enroll.disabled = true;
+    //  start.disabled = false;
+    //  enroll.disabled = true;
     });
 }
 
 //Function stopRecording
 function handleStop() {
-  let loader = document.getElementById("loader");
-  loader.className = "";
+  let spinner = document.getElementById("spinner");
+  spinner.style.visibility = "hidden";
   createVoiceInput.disabled = false;
   enroll.disabled = false;
+  deleted.style.visibility = "visible"
   console.log("Recording stopped");
   rec.stop();
   gumStream.getAudioTracks()[0].stop();
@@ -205,9 +205,9 @@ function handleAudioFile(audiofile) {
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
         var phrase = document.getElementById("phrase").value;
         var id = JSON.parse(localStorage.getItem("user_id")).voiceId;
-        console.log("File available at", downloadURL);
-        console.log(id, "voice id");
-        console.log(phrase);
+        //console.log("File available at", downloadURL);
+        //console.log(id, "voice id");
+      //  console.log(phrase);
         const data = {
           url: downloadURL,
           id: id,
@@ -229,41 +229,30 @@ function handleAudioFile(audiofile) {
           .then(result => {
             if (result.status == 201) {
               var count = localStorage.getItem("count");
-              var pre = document.getElementById("log");
+              //var pre = document.getElementById("log");
               switch (count) {
                 case count == null:
                   localStorage.setItem("count", 1);
-                  pre.innerHTML =
-                    "Enrollment successfully 2 more enrollments to go";
+                  alert("Enrollment successfully 2 more enrollments to go");
                   break;
-                case count == 1:
+                case count === 1:
                   localStorage.setItem("count", 2);
-                  pre.innerHTML =
-                    "Enrollment successfully 1 more enrollments to go";
+                  alert ("Enrollment successfully 1 more enrollments to go");
                   break;
-                case count == 2:
-                  pre.innerHTML =
-                    "All 3 voice enrollments successfully, You can now login with your voice";
+                case count ===2:
+                    alert("All 3 voice enrollments successfully, You can now login with your voice");
                   break;
                 default:
-                  alert(
-                    "Voice enrolled successfully, add two more to complete the proceess"
-                  );
                   console.log(count, "is here");
               }
               return;
             }
-
-            if (result.status == 400) {
-              console.log(result.data);
-            }
-
-            console.log(result);
+          //  console.log(result);
           })
           .catch(error => {
-            var pre = document.getElementById("log");
-            pre.innerHTML = error.response.data.msg;
-            console.log(error.response.data);
+            //var pre = document.getElementById("log");
+            //pre.innerHTML = error.response.data.msg;
+            alert(error.response.data.msg);
           });
       });
     }

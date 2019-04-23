@@ -1,81 +1,208 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Welcome to the Voice Auth App</title>
+    <title>Welcome</title>
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cabin|Muli"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/style.css" />
     <style>
-      pre#log {
-        height: 500px;
-        overflow: auto;
-        font-size: 1em;
-        position: absolute;
-        margin-left: 10%;
-        margin-top: 18%;
+
+    body {
+      padding : 0;
+      margin : 0;
+      font-family : Cabin !important;
+      background : linear-gradient(to right, #eee, #fafafa);
+    }
+
+    .container{
+      display : flex;
+      flex-direction : column;
+      justify-content : center;
+      box-sizing : border-box;
+      align-items : center;
+      position : relative;
+      top : 10vh;
+      font-size : 15px;
+    }
+
+    .card {
+      min-width : 320px;
+      min-height : 280px;
+      background : #fdfdfd;
+      border-top-left-radius : 15px;
+      border-top-right-radius : 15px;
+      box-shadow : 0 4px 19px 0 rgba(0, 0, 0, 0.3);
+      box-sizing : border-box;
+      transition : 2s;
+    }
+
+    .header-text{
+      font-size : 1.2em;
+      font-family : Cabin !important;
+      font-weight : 600;
+      word-spacing : 0.7px;
+      margin-bottom : 15px;
+      color : rgb(96, 51, 141)
+    }
+
+    form {
+      display : flex;
+      justify-content : center;
+      align-items : center;
+      flex-direction : column;
+      top : 30px;
+      position : relative;
+      transition: 2s;
+      box-sizing: border-box;
+      visibility: visible;
+    }
+
+    form div {
+      padding : 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"]{
+      width : 270px;
+      height : auto;
+      padding : 10px;
+      border-top : 1px solid rgb(96, 51, 141);
+      border-left : 0;
+      border-right : 0;
+      border-bottom : 0;
+      outline : 0;
+      box-shadow : 0px 0px 20px 1px rgba(0, 0, 0, 0.08);
+      background-color: #fdfdfd;
+      font-family: inherit;
+    }
+
+    ::placeholder {
+      font-size : 1em;
+      font-weight : 600;
+      word-spacing : 0.5px;
+      color : rgb(96, 51, 141);
+      font-family : Cabin;
+    }
+
+    button {
+      padding : 10px;
+      width : 150px;
+      border : 1px solid transparent;
+      outline : 0;
+      cursor : pointer;
+      border-radius : 5px;
+      color : rgb(96, 51, 141);
+      font-size : 1em;
+      font-weight : 600;
+      font-family : inherit;
+      background : #fdfdfd;
+      border : 1px solid rgb(96, 51, 141);
+    }
+    strong {
+      margin-top : 15px;
+    }
+
+    .spinner-1 {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      width: 64px;
+      height: 64px;
+      border-radius: 64px;
+      z-index: 1000;
+      top :50vw;
+      left : 44%;
+    }
+
+    .spinner-1::before{
+      content: "";
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 64px;
+      box-shadow: inset -5px 0 0 5px currentColor;
+      color : rgb(96, 51, 141);
+      clip : rect(0, 64px, 32px, 0);
+      animation: rotator 1s infinite linear;
+    }
+
+    @keyframes rotator {
+      0% {
+        transform: rotate(-180deg);
+        box-shadow: inset -5px 0 0 5px currentColor
+      }
+      50% {
+        transform: rotate(0deg);
+        box-shadow: inset -1px 0 0 1px currentColor
+
       }
 
-      .log {
-        font-family: calibre;
-        font-size: 1rem;
-        line-height: 1.25em;
-        font-weight: 400;
-        letter-spacing: 0.015em;
-        text-transform: none;
-        font-weight: bold;
-        font-variant: all-petite-caps;
+      100% {
+        transform: rotate(180deg);
+        box-shadow: inset -5px 0 0 5px currentColor
+
       }
+    }
+
+@media screen and (min-width : 720px){
+
+  .spinner-1 {
+    top : 35vh;
+    left : 47.5vw;
+  }
+}
+
+.next-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top : -150px;
+  visibility: hidden;
+}
+
+
     </style>
   </head>
-  <body>
-    <em
-      style="word-spacing : 0.4px; font-weight: 600; font-size: 20px; color : goldenrod ;position: relative; top: 25px; margin-left: 12vw;"
-      >Voice authencation web app</em
-    >
-    <div class="form">
-      <form method="post">
-        <div class="back">
-          <span
-            ><i class="fa fa-arrow-circle-left" aria-hidden="true"></i
-          ></span>
-        </div>
-        <div class="inputs">
-          <div class="email">
-            <p>Enter your credentials</p>
-            <input
-              class="first"
-              type="text"
-              placeholder="Your name"
-              id="name"
-            />
-            <input
-              class="first"
-              type="password"
-              placeholder="Access Password"
-              id="password"
-            />
-            <input
-              class="first"
-              type="email"
-              placeholder="Access email"
-              id="email"
-            />
-            <button class="login" id="createAccount">Create Account</button>
-            <button class="login" id="next">
-              Next
-            </button>
-          </div>
-        </div>
-        <pre style="color : red" id="log"></pre>
-      </form>
-    </div>
-    <p class="warning"></p>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <body>
+    <span class="spinner-1" id="spinner" style="visibility : hidden">
+    </span>
+    <div class="container">
+      <div class="header-text">
+        Welcome! Create an Account
+      </div>
+      <div class="card">
+        <form id="form" style="visibility : visible">
+          <div class="">
+            <input type="text" id="name" name="" value="" placeholder="Enter your name">
+          </div>
+          <div class="">
+            <input type="email" id="email" name="" value="" placeholder="Enter your email">
+          </div>
+          <div class="">
+            <input type="password" id="password"name="" value="" placeholder="Enter your password">
+          </div>
+          <div class="">
+            <button type="button" name="button" id="createAccount">Sign up</button>
+          </div>
+        </form>
+      </div>
+      <strong>Ooh! I have an account <a href="#">Login</a></strong>
+    </div>
+
+    <div class="next-button" id="next-button" style="visibility : hidden">
+    <button type="button" name="button" id="next">Next</button>
+    </div>
     <script src="js/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 </html>
