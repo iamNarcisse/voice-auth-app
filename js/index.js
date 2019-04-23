@@ -35,15 +35,7 @@ function createUserAccount(e) {
     data: data
   })
     .then(result => {
-      if (result.status === 400) {
-        //let pre = document.getElementById("log");
-        //pre.innerHTML = "One or more parameters missing";
-        alert("One or more paramater missing");
-        return;
-      }
-
       if (result.status === 200) {
-
         //next.disabled = false;
         console.log(result.data.user_id);
         let data = {
@@ -63,12 +55,13 @@ function createUserAccount(e) {
         alert("Account created successfully");
         return;
       }
-//console.log(result);
+console.log(result);
     })
     .catch(error => {
       console.log(error.response)
-//alert(error.response.data.msg);
-      document.getElementById("spinner").style.visibility = "hidden"
+      document.getElementById("spinner").style.visibility = "hidden";
+      alert(error.response.data.msg);
+
     });
 
   //console.log(data);
