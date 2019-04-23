@@ -1,9 +1,18 @@
 var createVoiceInput = document.getElementById("start");
 var enroll = document.getElementById("enroll"); //Stops recording process
 const deleted = document.getElementById("delete");
+const next = document.getElementById("next-button");
 var id = JSON.parse(localStorage.getItem("user_id")).voiceId;
+var count = localStorage.getItem("count")
+var spinner = document.getElementById("spinner");
+//spinner.style.visibility = "visible";
+
 //var id = 1;
 //Add eventlisteners to the variables declared above
+next.addEventListener("click", function(e) {
+  e.preventDefault();
+  window.location.replace("./login.html");
+});
 
 createVoiceInput.addEventListener("click", handleCreate);
 enroll.addEventListener("click", enrollAudio);
@@ -32,7 +41,7 @@ function handleCreate(e) {
     return;
   }
 
-  let spinner = document.getElementById("spinner");
+  //let spinner = document.getElementById("spinner");
   spinner.style.visibility = "visible";
 
   console.log(id);
@@ -70,7 +79,7 @@ function handleCreate(e) {
 
 //Function stopRecording
 function handleStop() {
-  let spinner = document.getElementById("spinner");
+  //let spinner = document.getElementById("spinner");
   spinner.style.visibility = "hidden";
   createVoiceInput.disabled = false;
   enroll.disabled = false;
@@ -106,6 +115,10 @@ function enrollAudio(e) {
     alert("Key phrase must be added");
     return;
   }
+
+//  let spinner = document.getElementById("spinner");
+  spinner.style.visibility = "visible";
+
   rec.exportWAV(handleAudioFile);
 }
 
@@ -227,8 +240,28 @@ function handleAudioFile(audiofile) {
           data: data
         })
           .then(result => {
+          //  let spinner = document.getElementById("spinner");
+            spinner.style.visibility = "hidden";
             if (result.status === 201) {
-              alert("Voice Enrollment successfully minimum of 3 enrollments required ")
+              if(count === null){
+                localStorage.setItem("count", 1)
+                alert("Voice enrollment successfully 2 more enrollments to go");
+                return;
+              }
+              if(count === 1) {
+                localStorage.setItem("count", 2);
+                alert("Voice enrollment successfully 1 more enrollment to go")
+                return;
+              }
+
+              if(count === 2) {
+                alert("Voice Enrollment successfully minimum of 3 enrollments required ");
+                document.getElementById("form").style.visibility = "hidden";
+                document.getElementById("spinner").style.visibility ="hidden";
+                document.getElementById("next-button").style.visibility = "visible";
+                localStorage.removeItem("count");
+                return;
+              }
             //  var count = localStorage.getItem("count");
               //var pre = document.getElementById("log");
               return;
@@ -238,6 +271,8 @@ function handleAudioFile(audiofile) {
           .catch(error => {
             //var pre = document.getElementById("log");
             //pre.innerHTML = error.response.data.msg;
+            //let spinner = document.getElementById("spinner");
+            spinner.style.visibility = "hidden";
             alert(error.response.data.msg);
           });
       });

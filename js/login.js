@@ -1,4 +1,6 @@
 const start = document.getElementById("start");
+var spinner = document.getElementById("spinner");
+//spinner.style.visibility = "visible";
 //attach events to them
 
 start.addEventListener("click", analyze);
@@ -31,8 +33,8 @@ function analyze(e) {
     rec = new Recorder(input, { numChannels: 1 });
     rec.record();
     console.log("recording started");
-    let loader = document.getElementById("spinner");
-    loader.style.visibility = "visible";
+    //let loader = document.getElementById("spinner");
+    spinner.style.visibility = "visible";
     setTimeout(handleStop, 5000);
   };
 
@@ -170,8 +172,8 @@ function handleAudioFile(audiofile) {
             console.log(result);
             switch (result.status) {
               case 200:
-                let loader = document.getElementById("spinner");
-                loader.style.visibility = "visible";
+              //  let loader = document.getElementById("spinner");
+                spinner.style.visibility = "hidden";
                 alert(`Welcome ${name}, login successful `);
                 break;
               default:
@@ -185,8 +187,10 @@ function handleAudioFile(audiofile) {
             // console.log("User identified successfully");
           })
           .catch(error => {
-            let loader = document.getElementById("spinner");
-            loader.style.visibility= "hidden";
+            start.disabled = false;
+          //  let loader = document.getElementById("spinner");
+            spinner.style.visibility= "hidden";
+
             alert(`${error.response.data.msg}`);
             console.log(error.response.data.msg);
           });
