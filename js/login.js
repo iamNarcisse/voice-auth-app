@@ -174,7 +174,8 @@ function handleAudioFile(audiofile) {
               case 200:
               //  let loader = document.getElementById("spinner");
                 spinner.style.visibility = "hidden";
-                alert(`Welcome ${name}, login successful `);
+                window.location.replace("./profile")
+                //alert(`Welcome ${name}, login successful `);
                 break;
               default:
                 // let loader = document.getElementById("loader");

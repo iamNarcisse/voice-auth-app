@@ -1,10 +1,155 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Profile</title>
-  </head>
-  <body>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Profile</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Cabin|Muli"
+    rel="stylesheet"
+  />
+	<style type="text/css">
 
-  </body>
+  body {
+    padding : 0;
+    margin : 0;
+    font-family : Cabin !important;
+    background : linear-gradient(to right, #eee, #fafafa);
+  }
+
+
+
+  .holder .text {
+      box-sizing : border-box;
+      position : relative;
+      top : 170px;
+      left : -55px;
+      font-family : Cabin;
+      font-size : 15px;
+      text-align :center;
+      color : #eee
+  }
+
+.profile-container .holder {
+      position : relative;
+      background : linear-gradient(to left, #79549f, #bf2371, #79549f);
+      width : 300px;
+      height : 200px;
+      display : flex;
+      justify-content : center;
+      z-index : 99;
+      border-top-right-radius : 20px ;
+      border-top-left-radius : 20px ;
+      box-sizing : border-box !important;
+      top : 50px;
+      box-shadow:  0px 0px 0px 8px rgb(0, 0, 0, .06);
+
+  }
+    .profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-height : 100%;
+
+    }
+
+    .profile-container .profile-card {
+    position : relative;
+    padding: 10px;
+    width: 300px;
+    height: 200px;
+    box-shadow:  0px 0px 8px 10px rgb(0, 0, 0, .04);
+    box-sizing: border-box;
+    background : #ffffff6e;
+    z-index : 2;
+    }
+
+    .profile-container .profile-image{
+    width: 100px;
+    height:100px;
+    border-radius: 250px;
+    box-shadow:  0px 0px 8px 10px rgb(0,0,0, 0.12);
+    top: 19%;
+    left : 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position : relative;
+
+    }
+
+    .profile-container .profile-image > img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+
+
+    }
+
+
+    .caption {
+    text-transform : uppercase;
+    font-size : 18px;
+    font-family : Cabin;
+    text-align : center;
+    }
+
+    p {
+    font-family : Cabin;
+    font-weight : bolder;
+
+    }
+
+    .profile-card div {
+      padding: 10px;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+
+
+
+   </style>
+</head>
+<body>
+	<div class="profile-container">
+
+    <div class="holder">
+        <div class="profile-image">
+          <img src="avatar.png" alt="pledre" />
+        </div>
+        <div class="text" id="wel" >Welcome User</div>
+    </div>
+		<div class="profile-card">
+      <br /><br /><br />
+      <div class="" id="name">
+        Name ~ User
+      </div>
+
+      <div class="" id="email">
+        Email ~ example@gmail.com
+      </div>
+
+      <div class="">
+        Password ~ Secured
+      </div>
+    </div>
+	</div>
+
+	<script type="text/javascript">
+  const data = JSON.parse(localStorage.getItem("user_id"));
+//  const username = data.username;
+  const email = data.email ? data.email : 'email@example.com';
+  const name = data.name ? data.name : "John Doe"
+   document.getElementById('name').innerHTML=`Name ~ ${name} `
+   document.getElementById("email").innerHTML=`Email ~ ${email}`
+   document.getElementById('wel').innerHTML=`Welcome ${name}!`
+	</script>
+</body>
 </html>
